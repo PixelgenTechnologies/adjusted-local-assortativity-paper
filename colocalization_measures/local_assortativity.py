@@ -128,16 +128,26 @@ def localAssortF_numeric(graph, attribute, include_randomise=False):
     loc_ass = np.empty(n_vertices)
     pr = np.arange(0., 1., 0.1)
 
+    if include_randomise:
+        loc_ass_mean = np.empty(n_vertices)
+
+    # initialise the loc_ass array
+    loc_ass = np.empty(n_vertices)
     per_pr = np.zeros((n_vertices, n_vertices))
+
     for index_vertex in range(n_vertices):
+
         # Calculate personalized totalrank
         pTotalRank = calculateRWRrange(W, index_vertex, pr, n_vertices)
         per_pr[index_vertex] = pTotalRank
 
         if include_randomise and permutations > 0:
+
+            # initialize permutations of markers
             attribute_permutation = attribute.copy()
             permutation_testing = np.zeros(permutations)
 
+            # run permutation testing
             for index_permutation in range(permutations):
                 np.random.shuffle(attribute_permutation)
                 DMp = sparse.diags(attribute_permutation, 0, format='csc')
