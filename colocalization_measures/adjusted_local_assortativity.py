@@ -222,17 +222,32 @@ def calculate_adjusted_local_assorativity(graph, attribute):
         else:
             numerical_attribute_list = [vertex["markers"][attribute] for vertex in graph.vs]
 
+            # create minimum number of marker counts based on controls
+            n_control_1 = np.sum([v_markers["mIgG1"] for v_markers in graph.vs["markers"]])
+            n_control_2 = np.sum([v_markers["mIgG2a"] for v_markers in graph.vs["markers"]])
+            
+            # get maximum of both controls
+            max_control = max(n_control_1, n_control_2)
+
     else:
         numerical_attribute_list = attribute
+        max_control = 0
 
-    # get local assortativity based on the graph and given attribute
-    loc_ass = localAssortF_numeric(graph, numerical_attribute_list, True)
+    # check for minimum number of vertices
+    n_vertices_marker = [1 for n_marker in numerical_attribute_list if n_marker > 0]
     
-    # normalize the given assortativity scores using the Z-score
-    normalized_local_assorativity_scores = normalize_local_assortativity_scores(loc_ass)
+    if  sum(n_vertices_marker) > 10 and sum(numerical_attribute_list) > max_control:
+        # get local assortativity based on the graph and given attribute
+        loc_ass = localAssortF_numeric(graph, numerical_attribute_list, False)
+        
+        # normalize the given assortativity scores using the Z-score
+        normalized_local_assorativity_scores = normalize_local_assortativity_scores(loc_ass)
 
-    # round scores to 5 digits
-    normalized_local_assorativity_scores = [np.round(num, 2) for num in normalized_local_assorativity_scores]
+        # round scores to 5 digits
+        normalized_local_assorativity_scores = [np.round(num, 2) for num in normalized_local_assorativity_scores]
+    
+    else:
+        normalized_local_assorativity_scores = [0] * graph.vcount()
 
     # return the socres
     return normalized_local_assorativity_scores

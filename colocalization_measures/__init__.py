@@ -1,3 +1,4 @@
-from .local_assortativity import calculate_adjusted_local_assorativity
+from .adjusted_local_assortativity import calculate_adjusted_local_assorativity
 from .plot import plot_mutliple_markers
 from .higher_order_similarity import calculate_higher_order_similarity
+from .colocalization_scores import create_colocalization_scores
