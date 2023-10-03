@@ -9,7 +9,7 @@ import numpy as np
 
 import os 
 
-from colocalization_measures.local_assortativity import calculate_adjusted_local_assorativity
+from colocalization_measures.adjusted_local_assortativity import calculate_adjusted_local_assorativity
 
 
 def local_assort_plot(graph, marker):
