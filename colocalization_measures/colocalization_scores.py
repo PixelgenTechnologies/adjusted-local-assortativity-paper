@@ -103,6 +103,7 @@ def create_higher_order_similarity_df(marker_names, path_data, order, preselecte
                 combinations.append(('CD50', 'mIgG1', 'mIgG2a'))
                 combinations.append(('CD44', 'mIgG1', 'mIgG2a'))
                 combinations.append(('mIgG2b', 'mIgG1', 'mIgG2a'))
+                combinations.append(('CD50', 'CD162', 'CD37'))
 
             # otherwise calculates all combinations of order 3 for the given markers
             else:
@@ -117,6 +118,8 @@ def create_higher_order_similarity_df(marker_names, path_data, order, preselecte
                 combinations.append(("CD50", 'mIgG2b', 'mIgG1', 'mIgG2a'))
                 combinations.append(("CD44", 'mIgG2b', 'mIgG1', 'mIgG2a'))
                 combinations.append(("CD43", 'mIgG2b', 'mIgG1', 'mIgG2a'))
+                combinations.append(("CD44", 'CD50', 'CD162', 'CD37'))
+                combinations.append(("CD43", 'CD50', 'CD162', 'CD37'))
 
             # otherwise calculates all combinations of order 4 for the given markers
             else:
