@@ -225,9 +225,10 @@ def calculate_adjusted_local_assorativity(graph, attribute):
             # create minimum number of marker counts based on controls
             n_control_1 = np.sum([v_markers["mIgG1"] for v_markers in graph.vs["markers"]])
             n_control_2 = np.sum([v_markers["mIgG2a"] for v_markers in graph.vs["markers"]])
+            n_control_3 = np.sum([v_markers["mIgG2b"] for v_markers in graph.vs["markers"]])
             
             # get maximum of both controls
-            max_control = max(n_control_1, n_control_2)
+            max_control = max(n_control_1, n_control_2, n_control_3)
 
     else:
         numerical_attribute_list = attribute
