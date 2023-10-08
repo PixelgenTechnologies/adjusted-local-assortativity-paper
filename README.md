@@ -1,4 +1,5 @@
-# TDA-local-assortativity-paper
-Repository containg the code and notebooks to reproduce the resultus of the local "Local Assortativity via Molecular Pixelation unveils colocalization between several membrane proteins of immunological significance" paper.
+# About
 
-The main divison of the repo is between the folder coloclaization measure containing the python scripts creating the scores of the paper and the notebooks used for plotting and explaining the use of the functions.
+Repository containg the code and notebooks to reproduce the results of the paper "Using Adjusted Local Assortativity with Molecular Pixelation unveils colocalization of membrane proteins with immunological significance".
+
+The repo contains both the folder `colocalization_measures` with a series of Python scripts creating the scores of the paper and the notebooks used for plotting and explaining the use of the functions.
