@@ -47,10 +47,11 @@ def create_colocalization_scores(marker_names: list, path_data: str, combination
                 combination_names = str(combination_df_columns[0]) + "_" + combination_df_columns[1]
                         
                 # calculate pairwise similarity score
-                if np.mean(loc_assort_marker_0) != 0 and np.mean(loc_assort_marker_1) != 0:
-                    new_similarity_measure = spearmanr(loc_assort_marker_0, loc_assort_marker_1)[0]
-                else:
+                if np.max(loc_assort_marker_0) == 0 and np.max(loc_assort_marker_1) == 0 and np.min(loc_assort_marker_0) == 0 and np.min(loc_assort_marker_1) == 0:
                     new_similarity_measure = 0
+                else:
+                    new_similarity_measure = spearmanr(loc_assort_marker_0, loc_assort_marker_1)[0]
+                    
                 
                 # append names and scores to list
                 names.append(combination_names)
@@ -99,11 +100,18 @@ def create_higher_order_similarity_df(marker_names, path_data, order, preselecte
             if preselected:
                 combinations = itertools.product(["CD50"], ["CD44"], marker_names)
 
+                # add control markers
                 combinations = list(combinations)
                 combinations.append(('CD50', 'mIgG1', 'mIgG2a'))
                 combinations.append(('CD44', 'mIgG1', 'mIgG2a'))
                 combinations.append(('mIgG2b', 'mIgG1', 'mIgG2a'))
                 combinations.append(('CD50', 'CD162', 'CD37'))
+                combinations.append(("CD50", 'CD54', 'CD102'))
+
+                # remove single iso types
+                combinations.remove(("CD50", "CD44", "mIgG2b"))
+                combinations.remove(("CD50", "CD44", "mIgG2a"))
+                combinations.remove(("CD50", "CD44", "mIgG1"))
 
             # otherwise calculates all combinations of order 3 for the given markers
             else:
@@ -118,8 +126,14 @@ def create_higher_order_similarity_df(marker_names, path_data, order, preselecte
                 combinations.append(("CD50", 'mIgG2b', 'mIgG1', 'mIgG2a'))
                 combinations.append(("CD44", 'mIgG2b', 'mIgG1', 'mIgG2a'))
                 combinations.append(("CD43", 'mIgG2b', 'mIgG1', 'mIgG2a'))
-                combinations.append(("CD44", 'CD50', 'CD162', 'CD37'))
-                combinations.append(("CD43", 'CD50', 'CD162', 'CD37'))
+                combinations.append(("CD50", 'CD44', 'CD162', 'CD37'))
+                combinations.append(("CD50", 'CD43', 'CD162', 'CD37'))
+                combinations.append(("CD50", "CD44", 'CD54', 'CD102'))
+
+                # remove single iso types
+                combinations.remove(("CD50", "CD44", "CD54", "mIgG2b"))
+                combinations.remove(("CD50", "CD44", "CD54", "mIgG2a"))
+                combinations.remove(("CD50", "CD44", "CD54", "mIgG1"))
 
             # otherwise calculates all combinations of order 4 for the given markers
             else:
