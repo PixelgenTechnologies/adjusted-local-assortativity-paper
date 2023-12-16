@@ -202,15 +202,18 @@ def normalize_local_assortativity_scores(loc_ass):
 
 
 
-def calculate_adjusted_local_assorativity(graph, attribute):
+def calculate_adjusted_local_assorativity(graph, attribute, marker_threshold=0):
     """
     Calculates the local assortativity score for each vertex in the given graph based on the given attribute.
 
     :param graph: An iGraph Graph object, must contain vertex attribute "marker", e.g graph.vs[0]["marker"] = "CD45"
     :param attribute: String, Name of the marker for which the local assortativity should be computed. E.g. "CD45"
+    :param marker_threshold (int): Optional attribute, definies the minimum number of markers needed so that the local assorativity
+        is not set to zero. If not set the threshold is based on the isotypes (control markers).
 
     :return: Normalized assortativity scores 
     """
+    
     if type(attribute) == str: 
 
         # check if line graph or A-node projection
@@ -233,6 +236,10 @@ def calculate_adjusted_local_assorativity(graph, attribute):
     else:
         numerical_attribute_list = attribute
         max_control = 0
+
+    # check if there is a threshold for the makrers not based on the control markers
+    if marker_threshold > 0:
+        max_control = marker_threshold
 
     # check for minimum number of vertices
     n_vertices_marker = [1 for n_marker in numerical_attribute_list if n_marker > 0]

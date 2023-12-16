@@ -98,20 +98,7 @@ def create_higher_order_similarity_df(marker_names, path_data, order, preselecte
         if order == 3:
             # if preselected calculated the combinations of the given marker with CD50 and CD44 as in the paper
             if preselected:
-                combinations = itertools.product(["CD50"], ["CD44"], marker_names)
-
-                # add control markers
-                combinations = list(combinations)
-                combinations.append(('CD50', 'mIgG1', 'mIgG2a'))
-                combinations.append(('CD44', 'mIgG1', 'mIgG2a'))
-                combinations.append(('mIgG2b', 'mIgG1', 'mIgG2a'))
-                combinations.append(('CD50', 'CD162', 'CD37'))
-                combinations.append(("CD50", 'CD54', 'CD102'))
-
-                # remove single iso types
-                combinations.remove(("CD50", "CD44", "mIgG2b"))
-                combinations.remove(("CD50", "CD44", "mIgG2a"))
-                combinations.remove(("CD50", "CD44", "mIgG1"))
+                combinations = marker_names
 
             # otherwise calculates all combinations of order 3 for the given markers
             else:
@@ -120,20 +107,7 @@ def create_higher_order_similarity_df(marker_names, path_data, order, preselecte
         elif order == 4:
             # if preselected calculated the combinations of the given marker with CD50, CD44, CD54 as in the paper
             if preselected:
-                combinations = itertools.product(["CD50"], ["CD44"], ["CD54"], marker_names)
-
-                combinations = list(combinations)
-                combinations.append(("CD50", 'mIgG2b', 'mIgG1', 'mIgG2a'))
-                combinations.append(("CD44", 'mIgG2b', 'mIgG1', 'mIgG2a'))
-                combinations.append(("CD43", 'mIgG2b', 'mIgG1', 'mIgG2a'))
-                combinations.append(("CD50", 'CD44', 'CD162', 'CD37'))
-                combinations.append(("CD50", 'CD43', 'CD162', 'CD37'))
-                combinations.append(("CD50", "CD44", 'CD54', 'CD102'))
-
-                # remove single iso types
-                combinations.remove(("CD50", "CD44", "CD54", "mIgG2b"))
-                combinations.remove(("CD50", "CD44", "CD54", "mIgG2a"))
-                combinations.remove(("CD50", "CD44", "CD54", "mIgG1"))
+                combinations = marker_names
 
             # otherwise calculates all combinations of order 4 for the given markers
             else:
