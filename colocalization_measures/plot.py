@@ -12,7 +12,7 @@ import os
 from colocalization_measures.adjusted_local_assortativity import calculate_adjusted_local_assorativity
 
 
-def local_assort_plot(graph, marker):
+def local_assort_plot(graph, marker, marker_threshold=0):
     """_summary_
 
     :param graph: _description_
@@ -20,7 +20,7 @@ def local_assort_plot(graph, marker):
     """
 
     # get assortativity scores after normalization
-    loc_rounded = calculate_adjusted_local_assorativity(graph, marker)
+    loc_rounded = calculate_adjusted_local_assorativity(graph, marker, marker_threshold)
     loc_rounded = [np.round(score, 2) for score in loc_rounded]
 
     # get color pallet with seaborn
